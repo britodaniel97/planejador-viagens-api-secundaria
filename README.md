@@ -17,7 +17,8 @@ A documentação interativa fica em `http://localhost:8001/docs`.
 
 ```bash
 docker build -t planejador-viagens-secundaria .
-docker run --rm -p 8001:8001 planejador-viagens-secundaria
+docker network create planejador-rede
+docker run -d --name planejador-api-secundaria --network planejador-rede -p 8002:8001 planejador-viagens-secundaria
 ```
 
 ## Rotas
@@ -28,8 +29,10 @@ docker run --rm -p 8001:8001 planejador-viagens-secundaria
 
 ```json
 {
-  "origem": {"latitude": -23.55, "longitude": -46.63},
-  "destino": {"latitude": -22.91, "longitude": -43.17}
+  "origem_lat": -23.55,
+  "origem_lon": -46.63,
+  "destino_lat": -22.91,
+  "destino_lon": -43.17
 }
 ```
 
@@ -41,6 +44,6 @@ docker run --rm -p 8001:8001 planejador-viagens-secundaria
 
 ## Arquitetura
 
-As rotas ficam separadas dos modelos e da classe que implementa os cálculos.
+As rotas ficam separadas dos modelos e da classe que implementa os cálculos. A API principal consome os endpoints de cálculo usando o endereço Docker `http://planejador-api-secundaria:8001`; o cliente acessa a documentação local em `http://localhost:8002/docs`.
 
 <!-- Inserir aqui a imagem do fluxograma da arquitetura. -->

@@ -15,10 +15,10 @@ calculadora = CalculadoraViagem()
 @router.post("/distancia", response_model=DistanciaResposta)
 def calcular_distancia(dados: DistanciaEntrada) -> DistanciaResposta:
     distancia = calculadora.calcular_distancia(
-        latitude_origem=dados.origem.latitude,
-        longitude_origem=dados.origem.longitude,
-        latitude_destino=dados.destino.latitude,
-        longitude_destino=dados.destino.longitude,
+        latitude_origem=dados.origem_lat,
+        longitude_origem=dados.origem_lon,
+        latitude_destino=dados.destino_lat,
+        longitude_destino=dados.destino_lon,
     )
     return DistanciaResposta(distancia_km=distancia)
 

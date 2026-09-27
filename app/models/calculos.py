@@ -3,14 +3,11 @@ from typing import Literal
 from pydantic import BaseModel
 
 
-class Coordenadas(BaseModel):
-    latitude: float
-    longitude: float
-
-
 class DistanciaEntrada(BaseModel):
-    origem: Coordenadas
-    destino: Coordenadas
+    origem_lat: float
+    origem_lon: float
+    destino_lat: float
+    destino_lon: float
 
 
 class DistanciaResposta(BaseModel):
