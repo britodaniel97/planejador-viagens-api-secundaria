@@ -44,6 +44,6 @@ docker run -d --name planejador-api-secundaria --network planejador-rede -p 8002
 
 ## Arquitetura
 
-As rotas ficam separadas dos modelos e da classe que implementa os cálculos. A API principal consome os endpoints de cálculo usando o endereço Docker `http://planejador-api-secundaria:8001`; o cliente acessa a documentação local em `http://localhost:8002/docs`.
+As rotas ficam separadas dos modelos e da classe que implementa os cálculos. A API principal consome os endpoints de cálculo usando o endereço Docker `http://planejador-api-secundaria:8001`; o Swagger local da secundária fica em `http://localhost:8001/docs`.
 
-<!-- Inserir aqui a imagem do fluxograma da arquitetura. -->
+![Diagrama da arquitetura e fluxo de comunicação do Planejador de Viagens](docs/arquitetura.svg)
