@@ -8,8 +8,9 @@ class CalculadoraViagem:
     _VELOCIDADES_KMH = {
         "carro": 100,
         "onibus": 80,
-        "aviao": 700,
     }
+    _VELOCIDADE_CRUZEIRO_AVIAO_KMH = 850
+    _TEMPO_OPERACIONAL_AVIAO_HORAS = 1
 
     def calcular_distancia(
         self,
@@ -33,5 +34,11 @@ class CalculadoraViagem:
         return round(self._RAIO_TERRA_KM * angulo, 2)
 
     def calcular_duracao(self, distancia_km: float, meio_transporte: str) -> float:
+        if meio_transporte == "aviao":
+            return round(
+                distancia_km / self._VELOCIDADE_CRUZEIRO_AVIAO_KMH
+                + self._TEMPO_OPERACIONAL_AVIAO_HORAS,
+                2,
+            )
         velocidade = self._VELOCIDADES_KMH[meio_transporte]
         return round(distancia_km / velocidade, 2)

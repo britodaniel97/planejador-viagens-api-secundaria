@@ -36,7 +36,7 @@ docker run -d --name planejador-api-secundaria --network planejador-rede -p 8002
 }
 ```
 
-- `POST /duracao-estimada` — estima a duração em horas; os meios aceitos são `carro`, `onibus` e `aviao`. Exemplo:
+- `POST /duracao-estimada` — estima a duração em horas. Carro e ônibus usam velocidade média; avião usa velocidade de cruzeiro estimada de 850 km/h e acrescenta uma hora para operações de voo. Os meios aceitos são `carro`, `onibus` e `aviao`. Exemplo:
 
 ```json
 {"distancia_km": 430, "meio_transporte": "carro"}
