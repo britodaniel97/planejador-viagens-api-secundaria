@@ -46,4 +46,23 @@ docker run -d --name planejador-api-secundaria --network planejador-rede -p 8002
 
 As rotas ficam separadas dos modelos e da classe que implementa os cálculos. A API principal consome os endpoints de cálculo usando o endereço Docker `http://planejador-api-secundaria:8001`; o Swagger local da secundária fica em `http://localhost:8001/docs`.
 
-![Diagrama da arquitetura e fluxo de comunicação do Planejador de Viagens](docs/arquitetura.svg)
+```mermaid
+flowchart LR
+    cliente[Cliente / Swagger]
+
+    subgraph docker[Rede Docker]
+        principal[API principal<br/>FastAPI :8000<br/>CRUD e orquestracao]
+        secundaria[API secundaria<br/>FastAPI :8001<br/>Distancia e duracao]
+        sqlite[(SQLite<br/>dados basicos)]
+    end
+
+    openmeteo[Open-Meteo<br/>Geocoding e previsao]
+
+    cliente -->|REST| principal
+    principal -->|SQL| sqlite
+    principal -->|REST: distancia e duracao| secundaria
+    secundaria -->|JSON: resultados| principal
+    principal -->|HTTPS: geocoding e previsao| openmeteo
+    openmeteo -->|JSON: coordenadas e clima| principal
+    principal -->|JSON consolidado| cliente
+```
